@@ -6,18 +6,18 @@
 		_Ligegyldig ("_Ligegyldig", float) = 0
 
 	}
-	
+
 	SubShader
 	{
-		
+
 		Tags
 		{
 			"Queue" = "Transparent"
 		}
 
-		 Cull Front // first pass renders only back faces 
+		 Cull Front // first pass renders only back faces
              // (the "inside")
-         ZWrite Off // don't write to depth buffer 
+         ZWrite Off // don't write to depth buffer
             // in order not to occlude other objects
          Blend SrcAlpha OneMinusSrcAlpha // use alpha blending
 
@@ -35,7 +35,7 @@
 					float2 texcoord : TEXCOORD0;
 					fixed4 color : COLOR;
 				};
-	
+
 				struct v2f
 				{
 					float4 vertex : SV_POSITION;
@@ -47,7 +47,7 @@
 				sampler2D _MainTex;
 				float4 _MainTex_ST;
 				sampler2D _AlphaTexture;
-				
+
 				v2f vert (appdata_t v)
 				{
 					v2f o;
@@ -59,7 +59,7 @@
 				#endif
 					return o;
 				}
-				
+
 				float4 frag (v2f i) : COLOR
 				{
 
@@ -100,8 +100,8 @@
 						{
 							return float4(col.x, col.y, col.z, 0.0);
 						}
-					}	 
-					return float4(col.x, col.y, col.z, tmpColor.w);
+					}
+					return float4(col.x, col.y, col.z, tmpColor.y);
 
 					//return float4(_Ligegyldig, 0,_Ligegyldig, _Ligegyldig);
 
