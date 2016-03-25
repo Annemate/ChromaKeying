@@ -7,6 +7,10 @@ public class webcam : MonoBehaviour {
 	public bool execute;
 	public AnimationCurve curve = AnimationCurve.Linear (0f, 0f, 1f, 1f);
 	public Gradient RefrenceColor;
+	public AnimationCurve saturationCurve = AnimationCurve.Linear (0f, 0f, 1f, 1f);
+	public Gradient RefrenceSaturation;
+	public AnimationCurve ValueCurve = AnimationCurve.Linear (0f, 0f, 1f, 1f);
+	public Gradient ValueSaturation;
 	public Texture2D texture;
 	public float ligegyldig;
 
@@ -40,7 +44,7 @@ public class webcam : MonoBehaviour {
 			execute = false;
 			for (int i = 0; i < texture.width; i++) {
 
-				Color color = new Color (1,  curve.Evaluate((float)i/(float)texture.width), 0, 1);
+				Color color = new Color (ValueCurve.Evaluate((float)i/(float)texture.width),  curve.Evaluate((float)i/(float)texture.width), saturationCurve.Evaluate((float)i/(float)texture.width), 1);
 
 				texture.SetPixel (i, 0, color);
 

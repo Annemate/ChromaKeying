@@ -64,7 +64,7 @@
 				{
 
 
-					float4 col = tex2D(_MainTex, i.texcoord) * i.color;
+					float4 col = tex2D(_MainTex, i.texcoord) ;//* i.color;
 					float myMax = max(max(col.x, col.y),col.z);
 					float myMin = min(min(col.x, col.y),col.z);
 					float H;
@@ -79,29 +79,36 @@
 						H = (((col.y - col.z)/(myMax - myMin))%6) * 60;
 					}
 
-					if (col.z > col.y)
+					if (col.y > col.x)
 					{
-						if (col.z > col.x)
+						if (col.y > col.z)
 						{
-						H = (((col.y - col.x)/(myMax - myMin)) + 2) * 60;
+						H = (((col.z - col.x)/(myMax - myMin)) + 2) * 60;
 						}
 					}
 
-					if (col.y > col.x && col.y > col.z)
+					if (col.z > col.x && col.z > col.y)
 					{
 						H = (((col.x - col.y)/(myMax - myMin)) + 4) * 60;
 					}
 
-					float4 tmpColor = tex2D(_AlphaTexture, float2(H / 360, 0));
+					float4 tmpColor = tex2D(_AlphaTexture, float2((H / 360), 0));
 
-					if (H > 100)
-						{
-						if (H < 200)
-						{
-							return float4(col.x, col.y, col.z, 0.0);
-						}
-					}
-					return float4(col.x, col.y, col.z, tmpColor.y);
+					float saturation = (myMax - myMin)/ myMax;
+					float4 mySaturation = tex2D(_AlphaTexture, float2(saturation,0));
+					float4 myValue = tex2D(_AlphaTexture, float2(myMax,0));
+
+				if(_Ligegyldig == 1){
+					return float4(1-tmpColor.y, 1-tmpColor.y, 1-tmpColor.y,1);
+				}else if(_Ligegyldig == 2){
+					return float4(col.x, col.y, col.z, 1);
+				}else if(_Ligegyldig == 3){
+					return float4(mySaturation.z, mySaturation.z, mySaturation.z,1);
+				}else{
+					return float4(col.x, col.y, col.z, (1-tmpColor.y) * (1-mySaturation.z));// * (myValue.x));
+				}
+					//return float4(tmpColor.y,tmpColor.y,tmpColor.y,1);
+
 
 					//return float4(_Ligegyldig, 0,_Ligegyldig, _Ligegyldig);
 
