@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class webcam : MonoBehaviour {
 
 	public bool execute;
