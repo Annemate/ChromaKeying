@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{31E17D21-7FF5-688C-C37B-53DEE5DC728C}") = "ChromaKey", "Assembly-CSharp.csproj", "{28A88953-7D1F-A1FD-9AE9-995163CEF78D}"
 EndProject
+Project("{31E17D21-7FF5-688C-C37B-53DEE5DC728C}") = "ChromaKey", "Assembly-CSharp-Editor.csproj", "{1998AB25-470C-8DE0-CA31-FF68E5ADAC13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{28A88953-7D1F-A1FD-9AE9-995163CEF78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28A88953-7D1F-A1FD-9AE9-995163CEF78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A88953-7D1F-A1FD-9AE9-995163CEF78D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1998AB25-470C-8DE0-CA31-FF68E5ADAC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1998AB25-470C-8DE0-CA31-FF68E5ADAC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1998AB25-470C-8DE0-CA31-FF68E5ADAC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1998AB25-470C-8DE0-CA31-FF68E5ADAC13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

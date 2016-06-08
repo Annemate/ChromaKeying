@@ -3,7 +3,11 @@
 	{
 		_MainTex ("Base (RGB), Alpha (A)", 2D) = "white" {}
 		_AlphaTexture ("_AlphaTexture", 2D) = "white" {}
-		_Ligegyldig ("_Ligegyldig", float) = 0
+		_mode ("_mode", float) = 0
+		_Saturation ("_Saturation", float) = 0.3
+		_Intensity ("_Intensity", float) = 0.1
+		_GrayX ("_GrayX", float) = 0
+		_GrayY ("_GrayY", float) = 0
 
 	}
 
@@ -43,10 +47,14 @@
 					fixed4 color : COLOR;
 				};
 
-				float _Ligegyldig;
+				float _mode;
+				float _Saturation;
+				float _Intensity;
 				sampler2D _MainTex;
 				float4 _MainTex_ST;
 				sampler2D _AlphaTexture;
+				float _GrayX;
+				float _GrayY;
 
 				v2f vert (appdata_t v)
 				{
@@ -63,6 +71,7 @@
 				float4 frag (v2f i) : COLOR
 				{
 
+				//	if(i.texcoord.x < )
 
 					float4 col = tex2D(_MainTex, i.texcoord) ;//* i.color;
 					float myMax = max(max(col.x, col.y),col.z);
@@ -73,6 +82,8 @@
 					{
 						return float4(col.x, col.y, col.z, 1.0);
 					}
+
+
 
 					if (col.x > col.y && col.x > col.z)
 					{
@@ -98,14 +109,24 @@
 					float4 mySaturation = tex2D(_AlphaTexture, float2(saturation,0));
 					float4 myValue = tex2D(_AlphaTexture, float2(myMax,0));
 
-				if(_Ligegyldig == 1){
+				if(_mode == 1){
 					return float4(1-tmpColor.y, 1-tmpColor.y, 1-tmpColor.y,1);
-				}else if(_Ligegyldig == 2){
+				}else if(_mode == 2){
 					return float4(col.x, col.y, col.z, 1);
-				}else if(_Ligegyldig == 3){
+				}else if(_mode == 3){
 					return float4(mySaturation.z, mySaturation.z, mySaturation.z,1);
-				}else{
-					return float4(col.x, col.y, col.z, (1-tmpColor.y) * (1-mySaturation.z));// * (myValue.x));
+				}else if(_mode == 4){
+					return tex2D(_MainTex, float2(_GrayX, _GrayY));
+					if(i.vertex.x < (_GrayX + 5) && i.vertex.x > (_GrayX - 5) && i.vertex.y < (_GrayY + 5) && i.vertex.y > (_GrayY - 5) ){
+						return float4(0,1,0,1);	
+					}
+					return float4(col.x, col.y, col.z, 1);
+				}else{	
+					if(saturation > _Saturation && (col.x + col.y + col.z)/3 > _Intensity){
+						return float4(col.x, col.y, col.z, (1-tmpColor.y));// * (myValue.x));
+					}
+					return float4(col.x, col.y, col.z, 1);// * (myValue.x));
+					return float4(col.x, col.y, col.z, (1-tmpColor.y));// * (myValue.x));
 				}
 					//return float4(tmpColor.y,tmpColor.y,tmpColor.y,1);
 

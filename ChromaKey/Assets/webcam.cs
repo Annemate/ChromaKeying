@@ -5,6 +5,13 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class webcam : MonoBehaviour {
 
+	//public Color color;
+	//[Range(0f , 1f)]
+	//public float Threshold;
+
+	//[Range(0f , 1f)]
+	//public float Slope;
+
 	public bool execute;
 	public AnimationCurve curve = AnimationCurve.Linear (0f, 0f, 1f, 1f);
 	public Gradient RefrenceColor;
@@ -13,7 +20,13 @@ public class webcam : MonoBehaviour {
 	public AnimationCurve ValueCurve = AnimationCurve.Linear (0f, 0f, 1f, 1f);
 	public Gradient ValueSaturation;
 	public Texture2D texture;
-	public float ligegyldig;
+	public float mode;
+	[Range (0,1)]
+	public float saturation;
+	[Range (0,1)]
+	public float intensity;
+	public float grayXAxis;
+	public float grayYAxis;
 
 	// Use this for initialization
 	void Start () {
@@ -51,7 +64,16 @@ public class webcam : MonoBehaviour {
 
 				gameObject.GetComponent<MeshRenderer> ().material.SetTexture ("_AlphaTexture", texture);
 
-				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_Ligegyldig", ligegyldig);
+				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_mode", mode);
+
+				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_Saturation", saturation);
+
+				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_Intensity", intensity);
+
+				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_GrayX", grayXAxis);
+
+				gameObject.GetComponent<MeshRenderer> ().material.SetFloat ("_GrayY", grayYAxis);
+
 			}
 
 			texture.Apply();
